@@ -424,3 +424,6 @@ int Network::writePosts(char* fname) {
 bool Network::comparePosts(Post* p1, Post* p2) {
     return p1->getMessageId() < p2->getMessageId();
 }
+
+void getPosts() {
+}

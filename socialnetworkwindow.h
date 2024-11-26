@@ -19,6 +19,10 @@ public:
     void loginButtonClick();
     void backButtonClick();
     void addFriendButtonClick();
+    void searchButtonClick();
+    void myPostsButtonClick();
+    void friendsPostsButtonClick();
+    void trendingPostsButtonClick();
     void display();
 
 public slots:

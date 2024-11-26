@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>130</y>
+      <y>240</y>
       <width>104</width>
       <height>71</height>
      </rect>
@@ -37,8 +37,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QLabel" name="enterNameLabel">
     <property name="geometry">
      <rect>
-      <x>320</x>
-      <y>110</y>
+      <x>310</x>
+      <y>210</y>
       <width>141</width>
       <height>16</height>
      </rect>
@@ -51,7 +51,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>220</y>
+      <y>320</y>
       <width>100</width>
       <height>32</height>
      </rect>
@@ -69,8 +69,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QLabel" name="profileLabel">
     <property name="geometry">
      <rect>
-      <x>300</x>
-      <y>0</y>
+      <x>290</x>
+      <y>110</y>
       <width>171</width>
       <height>20</height>
      </rect>
@@ -82,8 +82,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QTableWidget" name="friendsListTable">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>30</y>
+      <x>10</x>
+      <y>160</y>
       <width>256</width>
       <height>192</height>
      </rect>
@@ -92,8 +92,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QLabel" name="recentPost1">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>280</y>
+      <x>20</x>
+      <y>430</y>
       <width>771</width>
       <height>21</height>
      </rect>
@@ -105,8 +105,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QLabel" name="recentPost2">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>320</y>
+      <x>20</x>
+      <y>470</y>
       <width>771</width>
       <height>16</height>
      </rect>
@@ -118,8 +118,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QLabel" name="recentPost3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>360</y>
+      <x>20</x>
+      <y>510</y>
       <width>781</width>
       <height>16</height>
      </rect>
@@ -131,8 +131,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QLabel" name="recentPost4">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>400</y>
+      <x>20</x>
+      <y>550</y>
       <width>781</width>
       <height>16</height>
      </rect>
@@ -144,8 +144,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QLabel" name="recentPost5">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>440</y>
+      <x>20</x>
+      <y>590</y>
       <width>781</width>
       <height>16</height>
      </rect>
@@ -158,7 +158,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="geometry">
      <rect>
       <x>90</x>
-      <y>10</y>
+      <y>110</y>
       <width>81</width>
       <height>16</height>
      </rect>
@@ -183,8 +183,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QTableWidget" name="suggestionsTable">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>30</y>
+      <x>470</x>
+      <y>160</y>
       <width>256</width>
       <height>192</height>
      </rect>
@@ -193,8 +193,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QLabel" name="suggestionsLabel">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>10</y>
+      <x>530</x>
+      <y>120</y>
       <width>121</width>
       <height>16</height>
      </rect>
@@ -214,6 +214,81 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </property>
     <property name="text">
      <string>Add Friend</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="searchBar">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>30</y>
+      <width>221</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="searchButton">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>30</y>
+      <width>51</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="searchWarningLabel">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>70</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>User not found!</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="myPostsButton">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>370</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>My Posts</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="friendsPostsButton">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>370</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Friends</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="trendingPostsButton">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>370</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Trending</string>
     </property>
    </widget>
   </widget>
