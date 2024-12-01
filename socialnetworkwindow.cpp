@@ -229,13 +229,13 @@ void SocialNetworkWindow::trendingPostsButtonClick()
 void SocialNetworkWindow::postClick1()
 {
     ui->clickedPostLabel->setText(ui->postButton1->text());
-    for (Post* p : curUser->getPosts()) {
-        if (p->getMessage() == ui->postButton1->text().toStdString()) {
+    displayPost();
+    for(Post* p : n.getPosts()) {
+        if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
             ui->likesLabel->setText(QString::number(p->getLikes()));
             break;
         }
     }
-    displayPost();
 }
 
 void SocialNetworkWindow::postClick2()
@@ -261,10 +261,10 @@ void SocialNetworkWindow::postClick5()
 void SocialNetworkWindow::likeClick()
 {
     ui->likeButton->setText("❤️");
-    ui->likesLabel->setText(QString::number(std::stoi(ui->likesLabel->text().toStdString()) + 1));
     for(Post* p : n.getPosts()) {
         if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
             p->setLikes(p->getLikes() + 1);
+            ui->likesLabel->setText(QString::number(p->getLikes()));
             n.writePosts("posts.txt");
             break;
         }
