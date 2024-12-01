@@ -130,6 +130,7 @@ void SocialNetworkWindow::tableClick(int row, int column)
 void SocialNetworkWindow::backButtonClick()
 {
     shownUser = curUser;
+    hideAll();
     ui->myPostsButton->show();
     ui->friendsPostsButton->show();
     ui->trendingPostsButton->show();
@@ -273,6 +274,7 @@ void SocialNetworkWindow::likeClick()
 
 void SocialNetworkWindow::displayPost() {
     hideAll();
+    ui->backButton->show();
     ui->likeButton->setText("🤍");
     ui->likeButton->show();
     ui->likesLabel->show();
@@ -330,6 +332,11 @@ void SocialNetworkWindow::display()
         msgIndex--;
     }
     if (shownUser->getId() == curUser->getId()) {
+        ui->friendsLabel->show();
+        ui->friendsListTable->show();
+        ui->profileLabel->show();
+        ui->searchBar->show();
+        ui->searchButton->show();
         std::string profileLabelText = "            My Profile";
         ui->profileLabel->setText(QString::fromStdString(profileLabelText));
         ui->suggestionsLabel->show();
