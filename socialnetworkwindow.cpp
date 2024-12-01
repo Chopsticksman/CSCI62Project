@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 
 Network n;
 User* curUser;
@@ -85,10 +86,16 @@ void SocialNetworkWindow::tableClick(int row, int column) {
     int id = n.getId(ui->friendsListTable->item(row, column)->text().toStdString());
     shownUser = n.getUser(id);
     display();
+    ui->myPostsButton->hide();
+    ui->friendsPostsButton->hide();
+    ui->trendingPostsButton->hide();
 }
 
 void SocialNetworkWindow::backButtonClick() {
     shownUser = curUser;
+    ui->myPostsButton->show();
+    ui->friendsPostsButton->show();
+    ui->trendingPostsButton->show();
     display();
 }
 
@@ -129,40 +136,51 @@ void SocialNetworkWindow::myPostsButtonClick() {
 }
 
 void SocialNetworkWindow::friendsPostsButtonClick(){
+    std::unordered_map<int, std::string> mp;
     std::set<int> friends = curUser->getFriends();
-    std::vector<Post* > friendPosts;
+    std::vector<int> keys;
     for (int fr : friends) {
         User *u = n.getUser(fr);
-        for (auto post : u->getPosts()) {
-            friendPosts.push_back(post);
+        std::vector<Post*> posts = u->getPosts();
+        for (auto post : posts) {
+            if (post->getIsPublic()) {
+                mp[post->getMessageId()] = post->getMessage();
+                keys.push_back(post->getMessageId());
+            }
         }
     }
 
-    std::vector<int> messageIds;
-    std::vector<std::string> messages;
-    for (int i = 0; i < friendPosts.size(); i++) {
-        messageIds.push_back(friendPosts[i]->getMessageId());
-        messages.push_back(friendPosts[i]->getMessage());
-    }
-    std::sort(messageIds.begin(), messageIds.end());
+    std::sort(keys.begin(), keys.end());
 
-    for(int i = messageIds.size() - 1; i >= messageIds.size()-5; i--) {
-        if (i == messageIds.size() - 1) {
-            ui->recentPost1->setText(QString::fromStdString(messages[i]));
-        } else if (i == messageIds.size() - 2) {
-            ui->recentPost2->setText(QString::fromStdString(messages[i]));
-        } else if (i == messageIds.size() -3) {
-            ui->recentPost3->setText(QString::fromStdString(messages[i]));
-        } else if (i == messageIds.size() -4) {
-            ui->recentPost4->setText(QString::fromStdString(messages[i]));
-        } else if (i == messageIds.size() -5) {
-            ui->recentPost5->setText(QString::fromStdString(messages[i]));
+    for(int i = keys.size() - 1; i >= keys.size()-5; i--) {
+        if (i == keys.size() - 1) {
+            ui->recentPost1->setText(QString::fromStdString(mp[keys[i]]));
+        } else if (i == keys.size() - 2) {
+            ui->recentPost2->setText(QString::fromStdString(mp[keys[i]]));
+        } else if (i == keys.size() - 3) {
+            ui->recentPost3->setText(QString::fromStdString(mp[keys[i]]));
+        } else if (i == keys.size() - 4) {
+            ui->recentPost4->setText(QString::fromStdString(mp[keys[i]]));
+        } else if (i == keys.size() - 5) {
+            ui->recentPost5->setText(QString::fromStdString(mp[keys[i]]));
         }
     }
 }
 
 void SocialNetworkWindow::trendingPostsButtonClick() {
+    std::vector<User*>users = n.getUsers();
+    for (auto user : users) {
 
+    }
+    // std::vector<int> likes;
+
+    // for (auto user : users) {
+    //     for (auto post : user->getPosts()) {
+    //         if (post->getIsPublic()) {
+
+    //         }
+    //     }
+    // }
 }
 
 

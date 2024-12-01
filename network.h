@@ -22,6 +22,9 @@ public:
     //post: creates an empty users_ list Network
     Network();
 
+    std::vector<User*> getUsers() {
+        return users_;
+    }
     //Method that takes in an id int and returns a User pointer
     //pre: none
     //post: nullptr if not found, user pointer if found
