@@ -385,6 +385,7 @@ void SocialNetworkWindow::hideAll() {
     ui->suggestionsLabel->hide();
     ui->suggestionsTable->hide();
     ui->trendingPostsButton->hide();
+    ui->clickedPostLabel->hide();
     ui->likeButton->hide();
     ui->likesLabel->hide();
 }
