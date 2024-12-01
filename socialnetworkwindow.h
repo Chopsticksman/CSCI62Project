@@ -23,7 +23,15 @@ public:
     void myPostsButtonClick();
     void friendsPostsButtonClick();
     void trendingPostsButtonClick();
+    void postClick1();
+    void postClick2();
+    void postClick3();
+    void postClick4();
+    void postClick5();
+    void likeClick();
     void display();
+    void displayPost();
+    void hideAll();
 
 public slots:
     void tableClick(int row, int column);
