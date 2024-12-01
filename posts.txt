@@ -1376,7 +1376,7 @@
 229
 	The disco ball in my living room is convinced it's the center of the universe.
 	0
-	131
+	7
 
 
 230
@@ -2354,7 +2354,7 @@
 392
 	Tried to teach my dog how to whistle. Turns out, that's a skill reserved for humans.
 	93
-	14
+	2
 	public
 	Zakir Jennings
 393

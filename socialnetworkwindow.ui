@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>808</width>
-    <height>850</height>
+    <height>715</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -106,7 +106,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="geometry">
      <rect>
       <x>730</x>
-      <y>520</y>
+      <y>632</y>
       <width>61</width>
       <height>31</height>
      </rect>
@@ -142,7 +142,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <property name="geometry">
      <rect>
       <x>710</x>
-      <y>490</y>
+      <y>600</y>
       <width>81</width>
       <height>32</height>
      </rect>
@@ -378,7 +378,91 @@ li.checked::marker { content: &quot;\2612&quot;; }
      </rect>
     </property>
     <property name="text">
-     <string>0000000</string>
+     <string>9 BILLION!!</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="reactionTable">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>370</y>
+      <width>121</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="reactionButton">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>330</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Reaction</string>
+    </property>
+    <property name="autoExclusive">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="confirmReactionButton">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>570</y>
+      <width>101</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="commentButton">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>330</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add Comment</string>
+    </property>
+    <property name="autoExclusive">
+     <bool>false</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="confirmCommentButton">
+    <property name="geometry">
+     <rect>
+      <x>87</x>
+      <y>570</y>
+      <width>101</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Comment</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="commentBox">
+    <property name="geometry">
+     <rect>
+      <x>13</x>
+      <y>410</y>
+      <width>251</width>
+      <height>161</height>
+     </rect>
     </property>
    </widget>
   </widget>

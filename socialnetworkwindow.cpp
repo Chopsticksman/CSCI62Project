@@ -11,6 +11,7 @@
 Network n;
 User *curUser;
 User *shownUser;
+std::string reaction;
 
 SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -35,6 +36,25 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
     ui->likeButton->hide();
     ui->likesLabel->setAlignment(Qt::AlignCenter);
     ui->likesLabel->hide();
+    ui->reactionButton->hide();
+    ui->reactionTable->hide();
+    ui->reactionTable->setColumnCount(1);
+    ui->reactionTable->setColumnWidth(0, 80);
+    ui->reactionTable->setRowCount(10);
+    ui->reactionTable->setItem(0, 0, new QTableWidgetItem(QString::fromStdString("😂")));
+    ui->reactionTable->setItem(1, 0, new QTableWidgetItem(QString::fromStdString("😢")));
+    ui->reactionTable->setItem(2, 0, new QTableWidgetItem(QString::fromStdString("😭")));
+    ui->reactionTable->setItem(3, 0, new QTableWidgetItem(QString::fromStdString("😠")));
+    ui->reactionTable->setItem(4, 0, new QTableWidgetItem(QString::fromStdString("😐")));
+    ui->reactionTable->setItem(5, 0, new QTableWidgetItem(QString::fromStdString("👍")));
+    ui->reactionTable->setItem(6, 0, new QTableWidgetItem(QString::fromStdString("👎")));
+    ui->reactionTable->setItem(7, 0, new QTableWidgetItem(QString::fromStdString("🤩")));
+    ui->reactionTable->setItem(8, 0, new QTableWidgetItem(QString::fromStdString("🔥")));
+    ui->reactionTable->setItem(9, 0, new QTableWidgetItem(QString::fromStdString("💯")));
+    ui->confirmReactionButton->hide();
+    ui->commentButton->hide();
+    ui->commentBox->hide();
+    ui->confirmCommentButton->hide();
     ui->friendsLabel->hide();
     ui->backButton->hide();
     ui->suggestionsLabel->hide();
@@ -57,17 +77,23 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
     connect(ui->postButton4, &QPushButton::clicked, this, &SocialNetworkWindow::postClick4);
     connect(ui->postButton5, &QPushButton::clicked, this, &SocialNetworkWindow::postClick5);
     connect(ui->likeButton, &QPushButton::clicked, this, &SocialNetworkWindow::likeClick);
+    connect(ui->reactionButton, &QPushButton::clicked, this, &SocialNetworkWindow::openReactions);
+    connect(ui->confirmReactionButton, &QPushButton::clicked, this, &SocialNetworkWindow::confirmReactionClick);
+    connect(ui->commentButton, &QPushButton::clicked, this, &SocialNetworkWindow::commentClick);
+    connect(ui->confirmCommentButton, &QPushButton::clicked, this, &SocialNetworkWindow::confirmCommentClick);
     connect(ui->loginButton, &QPushButton::clicked, this, &SocialNetworkWindow::loginButtonClick);
     connect(ui->backButton, &QPushButton::clicked, this, &SocialNetworkWindow::backButtonClick);
     connect(ui->addFriendButton,
             &QPushButton::clicked,
             this,
             &SocialNetworkWindow::addFriendButtonClick);
-    connect(ui->friendsListTable, SIGNAL(cellClicked(int, int)), this, SLOT(tableClick(int, int)));
+    connect(ui->friendsListTable, SIGNAL(cellClicked(int,int)), this, SLOT(tableClick(int,int)));
+    connect(ui->reactionTable, SIGNAL(cellClicked(int,int)), this, SLOT(reactionClick(int,int)));
+
     connect(ui->suggestionsTable,
-            SIGNAL(cellClicked(int, int)),
+            SIGNAL(cellClicked(int,int)),
             this,
-            SLOT(suggestionsClick(int, int)));
+            SLOT(suggestionsClick(int,int)));
     connect(ui->searchButton, &QPushButton::clicked, this, &SocialNetworkWindow::searchButtonClick);
     connect(ui->myPostsButton,
             &QPushButton::clicked,
@@ -272,6 +298,70 @@ void SocialNetworkWindow::likeClick()
     }
 }
 
+void SocialNetworkWindow::openReactions() {
+    if (!ui->reactionTable->isVisible()) {
+        ui->reactionTable->show();
+        ui->reactionButton->setText("Cancel");
+    } else {
+        ui->reactionTable->hide();
+        ui->reactionButton->setText("Add Reaction");
+        ui->confirmReactionButton->hide();
+    }
+}
+
+void SocialNetworkWindow::reactionClick(int row, int column) {
+    reaction = ui->reactionTable->item(row, column)->text().toStdString();
+    ui->confirmReactionButton->show();
+}
+
+void SocialNetworkWindow::confirmReactionClick() {
+    int messageId = n.getPosts().size();
+    int ownerId;
+    std::string author;
+    for(Post* p : n.getPosts()) {
+        if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+            ownerId = p->getOwnerId();
+            author = p->getAuthor();
+            break;
+        }
+    }
+    Post* p = new IncomingPost(messageId, ownerId, reaction, 0, false, author);
+    curUser->addPost(p);
+    n.writePosts("posts.txt");
+}
+
+void SocialNetworkWindow::commentClick() {
+    if (!ui->commentBox->isVisible()) {
+        ui->commentBox->show();
+        ui->commentButton->setText("Cancel");
+        ui->confirmCommentButton->show();
+    } else {
+        ui->commentBox->hide();
+        ui->commentButton->setText("Add Comment");
+        ui->confirmCommentButton->hide();
+    }
+}
+
+void SocialNetworkWindow::confirmCommentClick() {
+    std::string message = ui->commentBox->toPlainText().toStdString();
+    if(message != "") {
+        int messageId = n.getPosts().size();
+        int ownerId;
+        std::string author;
+        for(Post* p : n.getPosts()) {
+            if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+                ownerId = p->getOwnerId();
+                author = p->getAuthor();
+                break;
+            }
+        }
+        Post* p = new IncomingPost(messageId, ownerId, message, 0, false, author);
+        curUser->addPost(p);
+        n.writePosts("posts.txt");
+        commentClick();
+    }
+}
+
 void SocialNetworkWindow::displayPost() {
     hideAll();
     ui->backButton->show();
@@ -279,6 +369,8 @@ void SocialNetworkWindow::displayPost() {
     ui->likeButton->show();
     ui->likesLabel->show();
     ui->clickedPostLabel->show();
+    ui->reactionButton->show();
+    ui->commentButton->show();
 }
 
 void SocialNetworkWindow::display()
@@ -395,4 +487,10 @@ void SocialNetworkWindow::hideAll() {
     ui->clickedPostLabel->hide();
     ui->likeButton->hide();
     ui->likesLabel->hide();
+    ui->reactionButton->hide();
+    ui->reactionTable->hide();
+    ui->confirmReactionButton->hide();
+    ui->commentButton->hide();
+    ui->commentBox->hide();
+    ui->confirmCommentButton->hide();
 }

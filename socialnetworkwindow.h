@@ -29,6 +29,10 @@ public:
     void postClick4();
     void postClick5();
     void likeClick();
+    void openReactions();
+    void confirmReactionClick();
+    void commentClick();
+    void confirmCommentClick();
     void display();
     void displayPost();
     void hideAll();
@@ -36,6 +40,7 @@ public:
 public slots:
     void tableClick(int row, int column);
     void suggestionsClick(int row, int column);
+    void reactionClick(int row, int column);
 
 private:
     Ui::SocialNetworkWindow *ui;

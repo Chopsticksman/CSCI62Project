@@ -51,6 +51,12 @@ public:
     QLabel *clickedPostLabel;
     QPushButton *likeButton;
     QLabel *likesLabel;
+    QTableWidget *reactionTable;
+    QPushButton *reactionButton;
+    QPushButton *confirmReactionButton;
+    QPushButton *commentButton;
+    QPushButton *confirmCommentButton;
+    QTextEdit *commentBox;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -58,7 +64,7 @@ public:
     {
         if (SocialNetworkWindow->objectName().isEmpty())
             SocialNetworkWindow->setObjectName("SocialNetworkWindow");
-        SocialNetworkWindow->resize(808, 850);
+        SocialNetworkWindow->resize(808, 715);
         centralwidget = new QWidget(SocialNetworkWindow);
         centralwidget->setObjectName("centralwidget");
         nameTextEdit = new QTextEdit(centralwidget);
@@ -83,7 +89,7 @@ public:
         friendsLabel->setGeometry(QRect(90, 110, 81, 16));
         backButton = new QPushButton(centralwidget);
         backButton->setObjectName("backButton");
-        backButton->setGeometry(QRect(730, 520, 61, 31));
+        backButton->setGeometry(QRect(730, 632, 61, 31));
         suggestionsTable = new QTableWidget(centralwidget);
         suggestionsTable->setObjectName("suggestionsTable");
         suggestionsTable->setGeometry(QRect(530, 160, 256, 192));
@@ -92,7 +98,7 @@ public:
         suggestionsLabel->setGeometry(QRect(610, 110, 121, 16));
         addFriendButton = new QPushButton(centralwidget);
         addFriendButton->setObjectName("addFriendButton");
-        addFriendButton->setGeometry(QRect(710, 490, 81, 32));
+        addFriendButton->setGeometry(QRect(710, 600, 81, 32));
         searchBar = new QTextEdit(centralwidget);
         searchBar->setObjectName("searchBar");
         searchBar->setGeometry(QRect(290, 30, 221, 31));
@@ -152,6 +158,28 @@ public:
         likesLabel = new QLabel(centralwidget);
         likesLabel->setObjectName("likesLabel");
         likesLabel->setGeometry(QRect(630, 210, 81, 20));
+        reactionTable = new QTableWidget(centralwidget);
+        reactionTable->setObjectName("reactionTable");
+        reactionTable->setGeometry(QRect(610, 370, 121, 192));
+        reactionButton = new QPushButton(centralwidget);
+        reactionButton->setObjectName("reactionButton");
+        reactionButton->setGeometry(QRect(620, 330, 100, 32));
+        reactionButton->setAutoExclusive(false);
+        reactionButton->setFlat(false);
+        confirmReactionButton = new QPushButton(centralwidget);
+        confirmReactionButton->setObjectName("confirmReactionButton");
+        confirmReactionButton->setGeometry(QRect(620, 570, 101, 32));
+        commentButton = new QPushButton(centralwidget);
+        commentButton->setObjectName("commentButton");
+        commentButton->setGeometry(QRect(90, 330, 100, 32));
+        commentButton->setAutoExclusive(false);
+        commentButton->setFlat(false);
+        confirmCommentButton = new QPushButton(centralwidget);
+        confirmCommentButton->setObjectName("confirmCommentButton");
+        confirmCommentButton->setGeometry(QRect(87, 570, 101, 32));
+        commentBox = new QTextEdit(centralwidget);
+        commentBox->setObjectName("commentBox");
+        commentBox->setGeometry(QRect(13, 410, 251, 161));
         SocialNetworkWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(SocialNetworkWindow);
         menubar->setObjectName("menubar");
@@ -196,7 +224,11 @@ public:
         postButton2->setText(QCoreApplication::translate("SocialNetworkWindow", "Recent Post 2", nullptr));
         clickedPostLabel->setText(QCoreApplication::translate("SocialNetworkWindow", "                                                                                                  Clicked Post Text Here", nullptr));
         likeButton->setText(QCoreApplication::translate("SocialNetworkWindow", "\360\237\244\215", nullptr));
-        likesLabel->setText(QCoreApplication::translate("SocialNetworkWindow", "0000000", nullptr));
+        likesLabel->setText(QCoreApplication::translate("SocialNetworkWindow", "9 BILLION!!", nullptr));
+        reactionButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Add Reaction", nullptr));
+        confirmReactionButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Add", nullptr));
+        commentButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Add Comment", nullptr));
+        confirmCommentButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Comment", nullptr));
     } // retranslateUi
 
 };
