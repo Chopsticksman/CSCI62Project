@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>808</width>
-    <height>715</height>
+    <width>992</width>
+    <height>784</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -236,7 +236,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      </rect>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LayoutDirection::LeftToRight</enum>
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
@@ -258,7 +258,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      </rect>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LayoutDirection::LeftToRight</enum>
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
@@ -280,7 +280,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      </rect>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LayoutDirection::LeftToRight</enum>
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
@@ -302,7 +302,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      </rect>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LayoutDirection::LeftToRight</enum>
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
@@ -324,7 +324,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      </rect>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LayoutDirection::LeftToRight</enum>
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
@@ -471,7 +471,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>808</width>
+     <width>992</width>
      <height>24</height>
     </rect>
    </property>

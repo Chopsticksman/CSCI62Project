@@ -78,22 +78,28 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
     connect(ui->postButton5, &QPushButton::clicked, this, &SocialNetworkWindow::postClick5);
     connect(ui->likeButton, &QPushButton::clicked, this, &SocialNetworkWindow::likeClick);
     connect(ui->reactionButton, &QPushButton::clicked, this, &SocialNetworkWindow::openReactions);
-    connect(ui->confirmReactionButton, &QPushButton::clicked, this, &SocialNetworkWindow::confirmReactionClick);
+    connect(ui->confirmReactionButton,
+            &QPushButton::clicked,
+            this,
+            &SocialNetworkWindow::confirmReactionClick);
     connect(ui->commentButton, &QPushButton::clicked, this, &SocialNetworkWindow::commentClick);
-    connect(ui->confirmCommentButton, &QPushButton::clicked, this, &SocialNetworkWindow::confirmCommentClick);
+    connect(ui->confirmCommentButton,
+            &QPushButton::clicked,
+            this,
+            &SocialNetworkWindow::confirmCommentClick);
     connect(ui->loginButton, &QPushButton::clicked, this, &SocialNetworkWindow::loginButtonClick);
     connect(ui->backButton, &QPushButton::clicked, this, &SocialNetworkWindow::backButtonClick);
     connect(ui->addFriendButton,
             &QPushButton::clicked,
             this,
             &SocialNetworkWindow::addFriendButtonClick);
-    connect(ui->friendsListTable, SIGNAL(cellClicked(int,int)), this, SLOT(tableClick(int,int)));
-    connect(ui->reactionTable, SIGNAL(cellClicked(int,int)), this, SLOT(reactionClick(int,int)));
+    connect(ui->friendsListTable, SIGNAL(cellClicked(int, int)), this, SLOT(tableClick(int, int)));
+    connect(ui->reactionTable, SIGNAL(cellClicked(int, int)), this, SLOT(reactionClick(int, int)));
 
     connect(ui->suggestionsTable,
-            SIGNAL(cellClicked(int,int)),
+            SIGNAL(cellClicked(int, int)),
             this,
-            SLOT(suggestionsClick(int,int)));
+            SLOT(suggestionsClick(int, int)));
     connect(ui->searchButton, &QPushButton::clicked, this, &SocialNetworkWindow::searchButtonClick);
     connect(ui->myPostsButton,
             &QPushButton::clicked,
@@ -107,8 +113,8 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
             &QPushButton::clicked,
             this,
             &SocialNetworkWindow::trendingPostsButtonClick);
-    n.readUsers("users.txt");
-    n.readPosts("posts.txt");
+    n.readUsers("/Users/erickim/Desktop/2_Fall/CS62/CSCI62Project/users.txt");
+    n.readPosts("/Users/erickim/Desktop/2_Fall/CS62/CSCI62Project/posts.txt");
 }
 
 SocialNetworkWindow::~SocialNetworkWindow()
@@ -205,6 +211,11 @@ void SocialNetworkWindow::myPostsButtonClick()
 
 void SocialNetworkWindow::friendsPostsButtonClick()
 {
+    ui->postButton1->show();
+    ui->postButton2->show();
+    ui->postButton3->show();
+    ui->postButton4->show();
+    ui->postButton5->show();
     std::unordered_map<int, std::string> mp;
     std::set<int> friends = curUser->getFriends();
     std::vector<int> keys;
@@ -234,30 +245,72 @@ void SocialNetworkWindow::friendsPostsButtonClick()
             ui->postButton5->setText(QString::fromStdString(mp[keys[i]]));
         }
     }
-
 }
 
-void SocialNetworkWindow::trendingPostsButtonClick()
-{
+void SocialNetworkWindow::trendingPostsButtonClick() {
+    ui->postButton1->show();
+    ui->postButton2->show();
+    ui->postButton3->show();
+    ui->postButton4->show();
+    ui->postButton5->show();
+
     std::vector<User *> users = n.getUsers();
+    std::vector<Post *> allPosts;
+
     for (auto user : users) {
+        std::vector<Post*> userPosts = user->getPosts();
+        for (auto post : userPosts) {
+            if (post->getIsPublic()) {
+                allPosts.push_back(post);
+
+            }
+        }
     }
-    // std::vector<int> likes;
 
-    // for (auto user : users) {
-    //     for (auto post : user->getPosts()) {
-    //         if (post->getIsPublic()) {
+    std::sort(allPosts.begin(), allPosts.end(), [](Post* a, Post* b) {
+        return a->getLikes() > b->getLikes();
+    });
 
-    //         }
-    //     }
-    // }
+    std::vector<std::string> top5message;
+
+    for (int i = 0; i < 5; i++) {
+        top5message.push_back(allPosts[i]->getMessage());
+        std::cout << allPosts[i]->getMessageId() << std::endl;
+        //std::cout << allPosts[i]->getLikes() << std::endl;
+    }
+
+    for (auto msg : top5message) {
+        std::cout << msg << std::endl;
+    }
+
+    for (int i = 0; i < top5message.size(); i++) {
+        if (i == 0) {
+            ui->postButton1->setText(QString::fromStdString(top5message[i]));
+            std::cout << allPosts[i]->getLikes() << std::endl;
+        } else if (i == 1) {
+            ui->postButton2->setText(QString::fromStdString(top5message[i]));
+            std::cout << allPosts[i]->getLikes() << std::endl;
+
+        } else if (i ==  2) {
+            ui->postButton3->setText(QString::fromStdString(top5message[i]));
+            std::cout << allPosts[i]->getLikes() << std::endl;
+
+        } else if (i == 3) {
+            ui->postButton4->setText(QString::fromStdString(top5message[i]));
+            std::cout << allPosts[i]->getLikes() << std::endl;
+
+        } else if (i == 4) {
+            ui->postButton5->setText(QString::fromStdString(top5message[i]));
+            std::cout << allPosts[i]->getLikes() << std::endl;
+        }
+    }
 }
 
 void SocialNetworkWindow::postClick1()
 {
     ui->clickedPostLabel->setText(ui->postButton1->text());
     displayPost();
-    for(Post* p : n.getPosts()) {
+    for (Post *p : n.getPosts()) {
         if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
             ui->likesLabel->setText(QString::number(p->getLikes()));
             break;
@@ -265,30 +318,54 @@ void SocialNetworkWindow::postClick1()
     }
 }
 
-void SocialNetworkWindow::postClick2()
-{
-
+void SocialNetworkWindow::postClick2() {
+    ui->clickedPostLabel->setText(ui->postButton2->text());
+    displayPost();
+    for (Post *p : n.getPosts()) {
+        if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+            ui->likesLabel->setText(QString::number(p->getLikes()));
+            break;
+        }
+    }
 }
 
-void SocialNetworkWindow::postClick3()
-{
-
+void SocialNetworkWindow::postClick3() {
+    ui->clickedPostLabel->setText(ui->postButton3->text());
+    displayPost();
+    for (Post *p : n.getPosts()) {
+        if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+            ui->likesLabel->setText(QString::number(p->getLikes()));
+            break;
+        }
+    }
 }
 
-void SocialNetworkWindow::postClick4()
-{
-
+void SocialNetworkWindow::postClick4() {
+    ui->clickedPostLabel->setText(ui->postButton4->text());
+    displayPost();
+    for (Post *p : n.getPosts()) {
+        if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+            ui->likesLabel->setText(QString::number(p->getLikes()));
+            break;
+        }
+    }
 }
 
-void SocialNetworkWindow::postClick5()
-{
-
+void SocialNetworkWindow::postClick5() {
+    ui->clickedPostLabel->setText(ui->postButton5->text());
+    displayPost();
+    for (Post *p : n.getPosts()) {
+        if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+            ui->likesLabel->setText(QString::number(p->getLikes()));
+            break;
+        }
+    }
 }
 
 void SocialNetworkWindow::likeClick()
 {
     ui->likeButton->setText("❤️");
-    for(Post* p : n.getPosts()) {
+    for (Post *p : n.getPosts()) {
         if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
             p->setLikes(p->getLikes() + 1);
             ui->likesLabel->setText(QString::number(p->getLikes()));
@@ -298,7 +375,8 @@ void SocialNetworkWindow::likeClick()
     }
 }
 
-void SocialNetworkWindow::openReactions() {
+void SocialNetworkWindow::openReactions()
+{
     if (!ui->reactionTable->isVisible()) {
         ui->reactionTable->show();
         ui->reactionButton->setText("Cancel");
@@ -309,28 +387,31 @@ void SocialNetworkWindow::openReactions() {
     }
 }
 
-void SocialNetworkWindow::reactionClick(int row, int column) {
+void SocialNetworkWindow::reactionClick(int row, int column)
+{
     reaction = ui->reactionTable->item(row, column)->text().toStdString();
     ui->confirmReactionButton->show();
 }
 
-void SocialNetworkWindow::confirmReactionClick() {
+void SocialNetworkWindow::confirmReactionClick()
+{
     int messageId = n.getPosts().size();
     int ownerId;
     std::string author;
-    for(Post* p : n.getPosts()) {
+    for (Post *p : n.getPosts()) {
         if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
             ownerId = p->getOwnerId();
             author = p->getAuthor();
             break;
         }
     }
-    Post* p = new IncomingPost(messageId, ownerId, reaction, 0, false, author);
+    Post *p = new IncomingPost(messageId, ownerId, reaction, 0, false, author);
     curUser->addPost(p);
     n.writePosts("posts.txt");
 }
 
-void SocialNetworkWindow::commentClick() {
+void SocialNetworkWindow::commentClick()
+{
     if (!ui->commentBox->isVisible()) {
         ui->commentBox->show();
         ui->commentButton->setText("Cancel");
@@ -342,27 +423,29 @@ void SocialNetworkWindow::commentClick() {
     }
 }
 
-void SocialNetworkWindow::confirmCommentClick() {
+void SocialNetworkWindow::confirmCommentClick()
+{
     std::string message = ui->commentBox->toPlainText().toStdString();
-    if(message != "") {
+    if (message != "") {
         int messageId = n.getPosts().size();
         int ownerId;
         std::string author;
-        for(Post* p : n.getPosts()) {
+        for (Post *p : n.getPosts()) {
             if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
                 ownerId = p->getOwnerId();
                 author = p->getAuthor();
                 break;
             }
         }
-        Post* p = new IncomingPost(messageId, ownerId, message, 0, false, author);
+        Post *p = new IncomingPost(messageId, ownerId, message, 0, false, author);
         curUser->addPost(p);
         n.writePosts("posts.txt");
         commentClick();
     }
 }
 
-void SocialNetworkWindow::displayPost() {
+void SocialNetworkWindow::displayPost()
+{
     hideAll();
     ui->backButton->show();
     ui->likeButton->setText("🤍");
@@ -394,8 +477,7 @@ void SocialNetworkWindow::display()
         if (msgIndex == -1) {
             break;
         }
-        if (shownUser->getPosts()[msgIndex]->getIsPublic() == true
-            || shownUser->getId() == curUser->getId()) {
+        if (shownUser->getPosts()[msgIndex]->getIsPublic() == true || shownUser->getId() == curUser->getId()) {
             if (i == 0) {
                 ui->postButton1->setText(
                     QString::fromStdString(shownUser->getPosts()[msgIndex]->getMessage()));
@@ -461,7 +543,8 @@ void SocialNetworkWindow::display()
     }
 }
 
-void SocialNetworkWindow::hideAll() {
+void SocialNetworkWindow::hideAll()
+{
     ui->addFriendButton->hide();
     ui->backButton->hide();
     ui->clickedPostLabel->hide();

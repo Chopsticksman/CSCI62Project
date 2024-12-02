@@ -426,9 +426,11 @@ int Network::writePosts(char *fname)
             ThisFile << "\n\n";
         } else {
             if (p->getIsPublic() == true) {
-                ThisFile << "\tpublic" << "\n";
+                ThisFile << "\tpublic"
+                         << "\n";
             } else {
-                ThisFile << "\tprivate" << "\n";
+                ThisFile << "\tprivate"
+                         << "\n";
             }
             ThisFile << "\t" << p->getAuthor() << "\n";
         }
@@ -442,10 +444,11 @@ bool Network::comparePosts(Post *p1, Post *p2)
     return p1->getMessageId() < p2->getMessageId();
 }
 
-std::vector<Post*> Network::getPosts() {
-    std::vector<Post*> returnVector;
-    for (User* u : users_) {
-        for (Post* p : u->getPosts()) {
+std::vector<Post *> Network::getPosts()
+{
+    std::vector<Post *> returnVector;
+    for (User *u : users_) {
+        for (Post *p : u->getPosts()) {
             if (find(returnVector.begin(), returnVector.end(), p) == returnVector.end()) {
                 returnVector.push_back(p);
             }

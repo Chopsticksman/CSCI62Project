@@ -126,7 +126,7 @@ public:
 
     static bool comparePosts(Post *p1, Post *p2);
 
-    std::vector<Post*> getPosts();
+    std::vector<Post *> getPosts();
 };
 
 #endif

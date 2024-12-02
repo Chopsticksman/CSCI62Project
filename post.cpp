@@ -61,7 +61,8 @@ bool Post::getIsPublic()
     return true;
 }
 
-void Post::setLikes(int likes) {
+void Post::setLikes(int likes)
+{
     likes_ = likes;
 }
 
