@@ -23,6 +23,8 @@ public:
     void myPostsButtonClick();
     void friendsPostsButtonClick();
     void trendingPostsButtonClick();
+    void createAccButtonClick();
+    void createAccount();
     void postClick1();
     void postClick2();
     void postClick3();

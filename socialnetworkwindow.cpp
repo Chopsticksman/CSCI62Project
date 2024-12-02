@@ -72,6 +72,13 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
     ui->myPostsButton->hide();
     ui->friendsPostsButton->hide();
     ui->trendingPostsButton->hide();
+    ui->enterNameLabel2->hide();
+    ui->enterNameText->hide();
+    ui->enterYearLabel->hide();
+    ui->enterYearText->hide();
+    ui->enterZipLabel->hide();
+    ui->enterZipText->hide();
+    ui->createButton->hide();
     connect(ui->postButton1, &QPushButton::clicked, this, &SocialNetworkWindow::postClick1);
     connect(ui->postButton2, &QPushButton::clicked, this, &SocialNetworkWindow::postClick2);
     connect(ui->postButton3, &QPushButton::clicked, this, &SocialNetworkWindow::postClick3);
@@ -114,6 +121,14 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
             &QPushButton::clicked,
             this,
             &SocialNetworkWindow::trendingPostsButtonClick);
+    connect(ui->createAccButton,
+            &QPushButton::clicked,
+            this,
+            &SocialNetworkWindow::createAccButtonClick);
+    connect(ui->createButton,
+            &QPushButton::clicked,
+            this,
+            &SocialNetworkWindow::createAccount);
     n.readUsers("users.txt");
     n.readPosts("posts.txt");
 }
@@ -133,6 +148,7 @@ void SocialNetworkWindow::loginButtonClick()
         shownUser = n.getUser(n.getId(name));
         ui->friendsLabel->show();
         ui->loginButton->hide();    //loginButton: the log in qpushbutton
+        ui->createAccButton->hide();
         ui->enterNameLabel->hide(); //enterNameLabel: the label right above the text box
         ui->nameTextEdit->hide();   //nameTextEdit: the textedit box where the name is typed
         ui->profileLabel
@@ -203,6 +219,9 @@ void SocialNetworkWindow::searchButtonClick()
     } else {
         ui->searchWarningLabel->show();
     }
+    ui->myPostsButton->hide();
+    ui->friendsPostsButton->hide();
+    ui->trendingPostsButton->hide();
 }
 
 void SocialNetworkWindow::myPostsButtonClick()
@@ -248,7 +267,8 @@ void SocialNetworkWindow::friendsPostsButtonClick()
     }
 }
 
-void SocialNetworkWindow::trendingPostsButtonClick() {
+void SocialNetworkWindow::trendingPostsButtonClick()
+{
     ui->postButton1->show();
     ui->postButton2->show();
     ui->postButton3->show();
@@ -259,16 +279,15 @@ void SocialNetworkWindow::trendingPostsButtonClick() {
     std::vector<Post *> allPosts;
 
     for (auto user : users) {
-        std::vector<Post*> userPosts = user->getPosts();
+        std::vector<Post *> userPosts = user->getPosts();
         for (auto post : userPosts) {
             if (post->getIsPublic()) {
                 allPosts.push_back(post);
-
             }
         }
     }
 
-    std::sort(allPosts.begin(), allPosts.end(), [](Post* a, Post* b) {
+    std::sort(allPosts.begin(), allPosts.end(), [](Post *a, Post *b) {
         return a->getLikes() > b->getLikes();
     });
 
@@ -277,7 +296,6 @@ void SocialNetworkWindow::trendingPostsButtonClick() {
     for (int i = 0; i < 5; i++) {
         top5message.push_back(allPosts[i]->getMessage());
         std::cout << allPosts[i]->getMessageId() << std::endl;
-        //std::cout << allPosts[i]->getLikes() << std::endl;
     }
 
     for (auto msg : top5message) {
@@ -292,7 +310,7 @@ void SocialNetworkWindow::trendingPostsButtonClick() {
             ui->postButton2->setText(QString::fromStdString(top5message[i]));
             std::cout << allPosts[i]->getLikes() << std::endl;
 
-        } else if (i ==  2) {
+        } else if (i == 2) {
             ui->postButton3->setText(QString::fromStdString(top5message[i]));
             std::cout << allPosts[i]->getLikes() << std::endl;
 
@@ -307,6 +325,47 @@ void SocialNetworkWindow::trendingPostsButtonClick() {
     }
 }
 
+void SocialNetworkWindow::createAccButtonClick() {
+    ui->enterNameLabel2->show();
+    ui->enterNameText->show();
+    ui->enterYearLabel->show();
+    ui->enterYearText->show();
+    ui->enterZipLabel->show();
+    ui->enterZipText->show();
+    ui->createButton->show();
+
+    ui->loginButton->hide();
+    ui->createAccButton->hide();
+    ui->enterNameLabel->hide();
+    ui->nameTextEdit->hide();
+}
+
+void SocialNetworkWindow::createAccount() {
+    std::string name = ui->enterNameText->toPlainText().toStdString();
+    int zip = ui->enterZipText->toPlainText().toInt();
+    int year = ui->enterYearText->toPlainText().toInt();
+    std::set<int> friends;
+
+    std::vector<User*> users = n.getUsers();
+
+    User * newUser = new User(n.numUsers(), name, year, zip, friends);
+    n.addUser(newUser);
+
+    n.writeUsers("users.txt");
+    ui->enterNameLabel2->hide();
+    ui->enterNameText->hide();
+    ui->enterYearLabel->hide();
+    ui->enterYearText->hide();
+    ui->enterZipLabel->hide();
+    ui->enterZipText->hide();
+    ui->createButton->hide();
+
+    ui->loginButton->show();
+    ui->createAccButton->show();
+    ui->enterNameLabel->show();
+    ui->nameTextEdit->show();
+}
+
 void SocialNetworkWindow::postClick1()
 {
     ui->clickedPostLabel->setText(ui->postButton1->text());
@@ -319,7 +378,8 @@ void SocialNetworkWindow::postClick1()
     }
 }
 
-void SocialNetworkWindow::postClick2() {
+void SocialNetworkWindow::postClick2()
+{
     ui->clickedPostLabel->setText(ui->postButton2->text());
     displayPost();
     for (Post *p : n.getPosts()) {
@@ -330,7 +390,8 @@ void SocialNetworkWindow::postClick2() {
     }
 }
 
-void SocialNetworkWindow::postClick3() {
+void SocialNetworkWindow::postClick3()
+{
     ui->clickedPostLabel->setText(ui->postButton3->text());
     displayPost();
     for (Post *p : n.getPosts()) {
@@ -341,7 +402,8 @@ void SocialNetworkWindow::postClick3() {
     }
 }
 
-void SocialNetworkWindow::postClick4() {
+void SocialNetworkWindow::postClick4()
+{
     ui->clickedPostLabel->setText(ui->postButton4->text());
     displayPost();
     for (Post *p : n.getPosts()) {
@@ -352,7 +414,8 @@ void SocialNetworkWindow::postClick4() {
     }
 }
 
-void SocialNetworkWindow::postClick5() {
+void SocialNetworkWindow::postClick5()
+{
     ui->clickedPostLabel->setText(ui->postButton5->text());
     displayPost();
     for (Post *p : n.getPosts()) {
@@ -479,7 +542,8 @@ void SocialNetworkWindow::display()
         if (msgIndex == -1) {
             break;
         }
-        if (shownUser->getPosts()[msgIndex]->getIsPublic() == true || shownUser->getId() == curUser->getId()) {
+        if (shownUser->getPosts()[msgIndex]->getIsPublic() == true
+            || shownUser->getId() == curUser->getId()) {
             if (i == 0) {
                 ui->postButton1->setText(
                     QString::fromStdString(shownUser->getPosts()[msgIndex]->getMessage()));

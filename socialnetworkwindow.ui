@@ -37,8 +37,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QLabel" name="enterNameLabel">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>210</y>
+      <x>340</x>
+      <y>200</y>
       <width>121</width>
       <height>20</height>
      </rect>
@@ -463,6 +463,101 @@ li.checked::marker { content: &quot;\2612&quot;; }
       <width>251</width>
       <height>161</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="createAccButton">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>350</y>
+      <width>121</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Create Account</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="enterNameText">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>230</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="enterZipText">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>290</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="enterYearText">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>350</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="enterNameLabel2">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>210</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Enter Name</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="enterZipLabel">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>270</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Enter Zip Code</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="enterYearLabel">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>330</y>
+      <width>101</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Enter Birth Year</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="createButton">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>390</y>
+      <width>100</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Create</string>
     </property>
    </widget>
   </widget>
