@@ -238,6 +238,7 @@ void SocialNetworkWindow::friendsPostsButtonClick()
     ui->postButton5->show();
     std::unordered_map<int, std::string> mp;
     std::set<int> friends = curUser->getFriends();
+<<<<<<< HEAD
     std::vector<int> keys;
     for (int fr : friends) {
         User *u = n.getUser(fr);
@@ -246,6 +247,42 @@ void SocialNetworkWindow::friendsPostsButtonClick()
             if (post->getIsPublic()) {
                 mp[post->getMessageId()] = post->getMessage();
                 keys.push_back(post->getMessageId());
+=======
+    if (friends.size() != 0) {
+        std::vector<int> keys;
+        for (int fr : friends) {
+            User *u = n.getUser(fr);
+            std::vector<Post *> posts = u->getPosts();
+            for (auto post : posts) {
+                if (post->getIsPublic()) {
+                    mp[post->getMessageId()] = post->getMessage();
+                    keys.push_back(post->getMessageId());
+                }
+            }
+        }
+
+        std::sort(keys.begin(), keys.end(), [](int a, int b) {
+            return a > b;
+        });
+
+        for (int i = 0; i < 5; i++) {
+            if (i == 0) {
+                ui->postButton1->show();
+                ui->postButton1->setText(QString::fromStdString(mp[keys[i]]));
+                std::cout << "hello" << std::endl;
+            } else if (i == 1) {
+                ui->postButton2->show();
+                ui->postButton2->setText(QString::fromStdString(mp[keys[i]]));
+            } else if (i == 2) {
+                ui->postButton3->show();
+                ui->postButton3->setText(QString::fromStdString(mp[keys[i]]));
+            } else if (i == 3) {
+                ui->postButton4->show();
+                ui->postButton4->setText(QString::fromStdString(mp[keys[i]]));
+            } else if (i == 4) {
+                ui->postButton5->show();
+                ui->postButton5->setText(QString::fromStdString(mp[keys[i]]));
+>>>>>>> 25b37a2018bbd8dc4d229c3542c59d9592c70fff
             }
         }
     }
@@ -516,7 +553,10 @@ void SocialNetworkWindow::displayPost()
     ui->likesLabel->show();
     ui->clickedPostLabel->show();
     ui->reactionButton->show();
+    ui->reactionButton->setText("Add Reaction");
     ui->commentButton->show();
+    ui->commentButton->setText("Add Comment");
+
 }
 
 void SocialNetworkWindow::display()
