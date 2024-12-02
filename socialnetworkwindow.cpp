@@ -231,52 +231,95 @@ void SocialNetworkWindow::myPostsButtonClick()
 
 void SocialNetworkWindow::friendsPostsButtonClick()
 {
-    ui->postButton1->hide();
-    ui->postButton2->hide();
-    ui->postButton3->hide();
-    ui->postButton4->hide();
-    ui->postButton5->hide();
+    ui->postButton1->show();
+    ui->postButton2->show();
+    ui->postButton3->show();
+    ui->postButton4->show();
+    ui->postButton5->show();
 
-    std::unordered_map<int, std::string> mp;
+    // std::unordered_map<int, std::string> mp;
+    // std::set<int> friends = curUser->getFriends();
+    // if (friends.size() != 0) {
+    //     std::vector<int> keys;
+    //     for (int fr : friends) {
+    //         User *u = n.getUser(fr);
+    //         std::vector<Post *> posts = u->getPosts();
+    //         for (auto post : posts) {
+    //             if (post->getIsPublic()) {
+    //                 mp[post->getMessageId()] = post->getMessage();
+    //                 keys.push_back(post->getMessageId());
+    //             }
+    //         }
+    //     }
+
+    //     std::sort(keys.begin(), keys.end(), [](int a, int b) {
+    //         return a > b;
+    //     });
+
+    //     for (int i = 0; i < 5; i++) {
+    //         if (i == 0) {
+    //             ui->postButton1->show();
+    //             ui->postButton1->setText(QString::fromStdString(mp[keys[i]]));
+    //         } else if (i == 1) {
+    //             ui->postButton2->show();
+    //             ui->postButton2->setText(QString::fromStdString(mp[keys[i]]));
+    //         } else if (i == 2) {
+    //             ui->postButton3->show();
+    //             ui->postButton3->setText(QString::fromStdString(mp[keys[i]]));
+    //         } else if (i == 3) {
+    //             ui->postButton4->show();
+    //             ui->postButton4->setText(QString::fromStdString(mp[keys[i]]));
+    //         } else if (i == 4) {
+    //             ui->postButton5->show();
+    //             ui->postButton5->setText(QString::fromStdString(mp[keys[i]]));
+    //         }
+    //     }
+    // }
+
     std::set<int> friends = curUser->getFriends();
-    if (friends.size() != 0) {
-        std::vector<int> keys;
-        for (int fr : friends) {
-            User *u = n.getUser(fr);
-            std::vector<Post *> posts = u->getPosts();
-            for (auto post : posts) {
+    std::vector<User *> users = n.getUsers();
+    std::vector<Post *> allFriendPosts;
+
+    for (auto user : users) {
+        if (friends.find(user->getId()) != friends.end()) {
+            std::vector<Post *> friendPosts = user->getPosts();
+            for (auto post : friendPosts) {
                 if (post->getIsPublic()) {
-                    mp[post->getMessageId()] = post->getMessage();
-                    keys.push_back(post->getMessageId());
+                    allFriendPosts.push_back(post);
                 }
-            }
-        }
-
-        std::sort(keys.begin(), keys.end(), [](int a, int b) {
-            return a > b;
-        });
-
-        for (int i = 0; i < 5; i++) {
-            if (i == 0) {
-                ui->postButton1->show();
-                ui->postButton1->setText(QString::fromStdString(mp[keys[i]]));
-                std::cout << "hello" << std::endl;
-            } else if (i == 1) {
-                ui->postButton2->show();
-                ui->postButton2->setText(QString::fromStdString(mp[keys[i]]));
-            } else if (i == 2) {
-                ui->postButton3->show();
-                ui->postButton3->setText(QString::fromStdString(mp[keys[i]]));
-            } else if (i == 3) {
-                ui->postButton4->show();
-                ui->postButton4->setText(QString::fromStdString(mp[keys[i]]));
-            } else if (i == 4) {
-                ui->postButton5->show();
-                ui->postButton5->setText(QString::fromStdString(mp[keys[i]]));
             }
         }
     }
 
+    std::sort(allFriendPosts.begin(), allFriendPosts.end(), [](Post* a, Post* b) {
+        return a->getMessageId() > b->getMessageId();
+    });
+
+    std::vector<std::string> top5message;
+    std::vector<std::string> top5owners;
+    for (int i = 0; i < 5; i++) {
+        top5message.push_back(allFriendPosts[i]->getMessage());
+    }
+
+    for (int i = 0; i < 5; i++) {
+        int id = allFriendPosts[i]->getOwnerId();
+        User *u = n.getUser(id);
+        top5owners.push_back(u->getName());
+    }
+
+    for (int i = 0; i < top5message.size(); i++) {
+        if (i == 0) {
+            ui->postButton1->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+        } else if (i == 1) {
+            ui->postButton2->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+        } else if (i == 2) {
+            ui->postButton3->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+        } else if (i == 3) {
+            ui->postButton4->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+        } else if (i == 4) {
+            ui->postButton5->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+        }
+    }
 }
 
 void SocialNetworkWindow::trendingPostsButtonClick()
@@ -304,34 +347,30 @@ void SocialNetworkWindow::trendingPostsButtonClick()
     });
 
     std::vector<std::string> top5message;
-
+    std::vector<std::string> top5owners;
     for (int i = 0; i < 5; i++) {
         top5message.push_back(allPosts[i]->getMessage());
     }
 
-    // for (auto msg : top5message) {
-    //     std::cout << msg << std::endl;
-    // }
+    for (int i = 0; i < 5; i++) {
+        int id = allPosts[i]->getOwnerId();
+        User *u = n.getUser(id);
+        top5owners.push_back(u->getName());
+        std::cout << u->getName() << std::endl;
+    }
+
 
     for (int i = 0; i < top5message.size(); i++) {
         if (i == 0) {
-            ui->postButton1->setText(QString::fromStdString(top5message[i]));
-            // std::cout << allPosts[i]->getLikes() << std::endl;
+            ui->postButton1->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
         } else if (i == 1) {
-            ui->postButton2->setText(QString::fromStdString(top5message[i]));
-            // std::cout << allPosts[i]->getLikes() << std::endl;
-
+            ui->postButton2->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
         } else if (i == 2) {
-            ui->postButton3->setText(QString::fromStdString(top5message[i]));
-            // std::cout << allPosts[i]->getLikes() << std::endl;
-
+            ui->postButton3->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
         } else if (i == 3) {
-            ui->postButton4->setText(QString::fromStdString(top5message[i]));
-            // std::cout << allPosts[i]->getLikes() << std::endl;
-
+            ui->postButton4->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
         } else if (i == 4) {
-            ui->postButton5->setText(QString::fromStdString(top5message[i]));
-            // std::cout << allPosts[i]->getLikes() << std::endl;
+            ui->postButton5->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
         }
     }
 }
