@@ -44,7 +44,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      </rect>
     </property>
     <property name="text">
-     <string>Enter your name. </string>
+     <string>Enter your name</string>
     </property>
    </widget>
    <widget class="QPushButton" name="loginButton">
@@ -242,7 +242,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <bool>false</bool>
     </property>
     <property name="text">
-     <string>Recent Post 1</string>
+     <string/>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -264,7 +264,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <bool>false</bool>
     </property>
     <property name="text">
-     <string>Recent Post 5</string>
+     <string/>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -286,7 +286,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <bool>false</bool>
     </property>
     <property name="text">
-     <string>Recent Post 4</string>
+     <string/>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -308,7 +308,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <bool>false</bool>
     </property>
     <property name="text">
-     <string>Recent Post 3</string>
+     <string/>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -330,7 +330,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <bool>false</bool>
     </property>
     <property name="text">
-     <string>Recent Post 2</string>
+     <string/>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -513,7 +513,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <rect>
       <x>340</x>
       <y>210</y>
-      <width>81</width>
+      <width>111</width>
       <height>16</height>
      </rect>
     </property>
@@ -558,6 +558,19 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </property>
     <property name="text">
      <string>Create</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="nameExistsLabel">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>180</y>
+      <width>141</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

@@ -79,6 +79,7 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
     ui->enterZipLabel->hide();
     ui->enterZipText->hide();
     ui->createButton->hide();
+    ui->nameExistsLabel->hide();
     connect(ui->postButton1, &QPushButton::clicked, this, &SocialNetworkWindow::postClick1);
     connect(ui->postButton2, &QPushButton::clicked, this, &SocialNetworkWindow::postClick2);
     connect(ui->postButton3, &QPushButton::clicked, this, &SocialNetworkWindow::postClick3);
@@ -231,40 +232,53 @@ void SocialNetworkWindow::myPostsButtonClick()
 
 void SocialNetworkWindow::friendsPostsButtonClick()
 {
-    ui->postButton1->show();
-    ui->postButton2->show();
-    ui->postButton3->show();
-    ui->postButton4->show();
-    ui->postButton5->show();
+    ui->postButton1->hide();
+    ui->postButton2->hide();
+    ui->postButton3->hide();
+    ui->postButton4->hide();
+    ui->postButton5->hide();
+
     std::unordered_map<int, std::string> mp;
     std::set<int> friends = curUser->getFriends();
-    std::vector<int> keys;
-    for (int fr : friends) {
-        User *u = n.getUser(fr);
-        std::vector<Post *> posts = u->getPosts();
-        for (auto post : posts) {
-            if (post->getIsPublic()) {
-                mp[post->getMessageId()] = post->getMessage();
-                keys.push_back(post->getMessageId());
+    if (friends.size() != 0) {
+        std::vector<int> keys;
+        for (int fr : friends) {
+            User *u = n.getUser(fr);
+            std::vector<Post *> posts = u->getPosts();
+            for (auto post : posts) {
+                if (post->getIsPublic()) {
+                    mp[post->getMessageId()] = post->getMessage();
+                    keys.push_back(post->getMessageId());
+                }
+            }
+        }
+
+        //std::sort(keys.begin(), keys.end());
+        std::sort(keys.begin(), keys.end(), [](int a, int b) {
+            return a > b;
+        });
+
+        for (int i = 0; i < 5; i++) {
+            if (i == 0) {
+                ui->postButton1->show();
+                ui->postButton1->setText(QString::fromStdString(mp[keys[i]]));
+                std::cout << "hello" << std::endl;
+            } else if (i == 1) {
+                ui->postButton2->show();
+                ui->postButton2->setText(QString::fromStdString(mp[keys[i]]));
+            } else if (i == 2) {
+                ui->postButton3->show();
+                ui->postButton3->setText(QString::fromStdString(mp[keys[i]]));
+            } else if (i == 3) {
+                ui->postButton4->show();
+                ui->postButton4->setText(QString::fromStdString(mp[keys[i]]));
+            } else if (i == 4) {
+                ui->postButton5->show();
+                ui->postButton5->setText(QString::fromStdString(mp[keys[i]]));
             }
         }
     }
 
-    std::sort(keys.begin(), keys.end());
-
-    for (int i = keys.size() - 1; i >= keys.size() - 5; i--) {
-        if (i == keys.size() - 1) {
-            ui->postButton1->setText(QString::fromStdString(mp[keys[i]]));
-        } else if (i == keys.size() - 2) {
-            ui->postButton2->setText(QString::fromStdString(mp[keys[i]]));
-        } else if (i == keys.size() - 3) {
-            ui->postButton3->setText(QString::fromStdString(mp[keys[i]]));
-        } else if (i == keys.size() - 4) {
-            ui->postButton4->setText(QString::fromStdString(mp[keys[i]]));
-        } else if (i == keys.size() - 5) {
-            ui->postButton5->setText(QString::fromStdString(mp[keys[i]]));
-        }
-    }
 }
 
 void SocialNetworkWindow::trendingPostsButtonClick()
@@ -305,22 +319,17 @@ void SocialNetworkWindow::trendingPostsButtonClick()
     for (int i = 0; i < top5message.size(); i++) {
         if (i == 0) {
             ui->postButton1->setText(QString::fromStdString(top5message[i]));
-            std::cout << allPosts[i]->getLikes() << std::endl;
         } else if (i == 1) {
             ui->postButton2->setText(QString::fromStdString(top5message[i]));
-            std::cout << allPosts[i]->getLikes() << std::endl;
 
         } else if (i == 2) {
             ui->postButton3->setText(QString::fromStdString(top5message[i]));
-            std::cout << allPosts[i]->getLikes() << std::endl;
 
         } else if (i == 3) {
             ui->postButton4->setText(QString::fromStdString(top5message[i]));
-            std::cout << allPosts[i]->getLikes() << std::endl;
 
         } else if (i == 4) {
             ui->postButton5->setText(QString::fromStdString(top5message[i]));
-            std::cout << allPosts[i]->getLikes() << std::endl;
         }
     }
 }
@@ -340,6 +349,17 @@ void SocialNetworkWindow::createAccButtonClick() {
     ui->nameTextEdit->hide();
 }
 
+int getLength(int num) {
+    if (num == 0)
+        return 1;
+    int length = 0;
+    while (num != 0) {
+        num /= 10;
+        length++;
+    }
+    return length;
+}
+
 void SocialNetworkWindow::createAccount() {
     std::string name = ui->enterNameText->toPlainText().toStdString();
     int zip = ui->enterZipText->toPlainText().toInt();
@@ -348,22 +368,40 @@ void SocialNetworkWindow::createAccount() {
 
     std::vector<User*> users = n.getUsers();
 
-    User * newUser = new User(n.numUsers(), name, year, zip, friends);
-    n.addUser(newUser);
+    int i = 0;
+    for ( ; i < users.size(); i++) {
+        if (users[i]->getName() == name) {
+            ui->nameExistsLabel->show();
+            ui->nameExistsLabel->setText(QString::fromStdString("Name already exists!"));
+            return;
+        }
+    }
 
-    n.writeUsers("users.txt");
-    ui->enterNameLabel2->hide();
-    ui->enterNameText->hide();
-    ui->enterYearLabel->hide();
-    ui->enterYearText->hide();
-    ui->enterZipLabel->hide();
-    ui->enterZipText->hide();
-    ui->createButton->hide();
+    if (i >= users.size()) {
+        if (getLength(zip) != 5 || getLength(year) != 4) {
+            ui->nameExistsLabel->show();
+            ui->nameExistsLabel->setText(QString::fromStdString("Invalid year or zipcode!"));
+            return;
+        }
+        User * newUser = new User(n.numUsers(), name, year, zip, friends);
+        n.addUser(newUser);
 
-    ui->loginButton->show();
-    ui->createAccButton->show();
-    ui->enterNameLabel->show();
-    ui->nameTextEdit->show();
+        n.writeUsers("users.txt");
+        ui->enterNameLabel2->hide();
+        ui->enterNameText->hide();
+        ui->enterYearLabel->hide();
+        ui->enterYearText->hide();
+        ui->enterZipLabel->hide();
+        ui->enterZipText->hide();
+        ui->createButton->hide();
+        ui->nameExistsLabel->hide();
+
+        ui->loginButton->show();
+        ui->createAccButton->show();
+        ui->enterNameLabel->show();
+        ui->enterNameLabel->setText(QString::fromStdString("Enter your name"));
+        ui->nameTextEdit->show();
+    }
 }
 
 void SocialNetworkWindow::postClick1()
