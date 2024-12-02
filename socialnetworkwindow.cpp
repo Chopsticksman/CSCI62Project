@@ -12,6 +12,7 @@ Network n;
 User *curUser;
 User *shownUser;
 std::string reaction;
+int currentMsgId;
 
 SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -113,8 +114,8 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
             &QPushButton::clicked,
             this,
             &SocialNetworkWindow::trendingPostsButtonClick);
-    n.readUsers("/Users/erickim/Desktop/2_Fall/CS62/CSCI62Project/users.txt");
-    n.readPosts("/Users/erickim/Desktop/2_Fall/CS62/CSCI62Project/posts.txt");
+    n.readUsers("users.txt");
+    n.readPosts("posts.txt");
 }
 
 SocialNetworkWindow::~SocialNetworkWindow()
@@ -312,8 +313,8 @@ void SocialNetworkWindow::postClick1()
     displayPost();
     for (Post *p : n.getPosts()) {
         if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+            currentMsgId = p->getMessageId();
             ui->likesLabel->setText(QString::number(p->getLikes()));
-            break;
         }
     }
 }
@@ -323,8 +324,8 @@ void SocialNetworkWindow::postClick2() {
     displayPost();
     for (Post *p : n.getPosts()) {
         if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+            currentMsgId = p->getMessageId();
             ui->likesLabel->setText(QString::number(p->getLikes()));
-            break;
         }
     }
 }
@@ -334,8 +335,8 @@ void SocialNetworkWindow::postClick3() {
     displayPost();
     for (Post *p : n.getPosts()) {
         if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+            currentMsgId = p->getMessageId();
             ui->likesLabel->setText(QString::number(p->getLikes()));
-            break;
         }
     }
 }
@@ -345,8 +346,8 @@ void SocialNetworkWindow::postClick4() {
     displayPost();
     for (Post *p : n.getPosts()) {
         if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+            currentMsgId = p->getMessageId();
             ui->likesLabel->setText(QString::number(p->getLikes()));
-            break;
         }
     }
 }
@@ -356,17 +357,18 @@ void SocialNetworkWindow::postClick5() {
     displayPost();
     for (Post *p : n.getPosts()) {
         if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+            currentMsgId = p->getMessageId();
             ui->likesLabel->setText(QString::number(p->getLikes()));
-            break;
         }
     }
 }
 
 void SocialNetworkWindow::likeClick()
 {
+    std::cout << currentMsgId << std::endl;
     ui->likeButton->setText("❤️");
     for (Post *p : n.getPosts()) {
-        if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+        if (p->getMessageId() == currentMsgId) {
             p->setLikes(p->getLikes() + 1);
             ui->likesLabel->setText(QString::number(p->getLikes()));
             n.writePosts("posts.txt");
@@ -399,7 +401,7 @@ void SocialNetworkWindow::confirmReactionClick()
     int ownerId;
     std::string author;
     for (Post *p : n.getPosts()) {
-        if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+        if (p->getMessageId() == currentMsgId) {
             ownerId = p->getOwnerId();
             author = p->getAuthor();
             break;
@@ -431,7 +433,7 @@ void SocialNetworkWindow::confirmCommentClick()
         int ownerId;
         std::string author;
         for (Post *p : n.getPosts()) {
-            if (p->getMessage() == ui->clickedPostLabel->text().toStdString()) {
+            if (p->getMessageId() == currentMsgId) {
                 ownerId = p->getOwnerId();
                 author = p->getAuthor();
                 break;

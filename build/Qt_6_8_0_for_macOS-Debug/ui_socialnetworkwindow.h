@@ -64,7 +64,7 @@ public:
     {
         if (SocialNetworkWindow->objectName().isEmpty())
             SocialNetworkWindow->setObjectName("SocialNetworkWindow");
-        SocialNetworkWindow->resize(808, 715);
+        SocialNetworkWindow->resize(992, 784);
         centralwidget = new QWidget(SocialNetworkWindow);
         centralwidget->setObjectName("centralwidget");
         nameTextEdit = new QTextEdit(centralwidget);
@@ -120,31 +120,31 @@ public:
         postButton1 = new QPushButton(centralwidget);
         postButton1->setObjectName("postButton1");
         postButton1->setGeometry(QRect(15, 420, 771, 32));
-        postButton1->setLayoutDirection(Qt::LayoutDirection::LeftToRight);
+        postButton1->setLayoutDirection(Qt::LeftToRight);
         postButton1->setAutoFillBackground(false);
         postButton1->setFlat(true);
         postButton5 = new QPushButton(centralwidget);
         postButton5->setObjectName("postButton5");
         postButton5->setGeometry(QRect(15, 620, 771, 32));
-        postButton5->setLayoutDirection(Qt::LayoutDirection::LeftToRight);
+        postButton5->setLayoutDirection(Qt::LeftToRight);
         postButton5->setAutoFillBackground(false);
         postButton5->setFlat(true);
         postButton4 = new QPushButton(centralwidget);
         postButton4->setObjectName("postButton4");
         postButton4->setGeometry(QRect(15, 570, 771, 32));
-        postButton4->setLayoutDirection(Qt::LayoutDirection::LeftToRight);
+        postButton4->setLayoutDirection(Qt::LeftToRight);
         postButton4->setAutoFillBackground(false);
         postButton4->setFlat(true);
         postButton3 = new QPushButton(centralwidget);
         postButton3->setObjectName("postButton3");
         postButton3->setGeometry(QRect(15, 520, 771, 32));
-        postButton3->setLayoutDirection(Qt::LayoutDirection::LeftToRight);
+        postButton3->setLayoutDirection(Qt::LeftToRight);
         postButton3->setAutoFillBackground(false);
         postButton3->setFlat(true);
         postButton2 = new QPushButton(centralwidget);
         postButton2->setObjectName("postButton2");
         postButton2->setGeometry(QRect(15, 470, 771, 32));
-        postButton2->setLayoutDirection(Qt::LayoutDirection::LeftToRight);
+        postButton2->setLayoutDirection(Qt::LeftToRight);
         postButton2->setAutoFillBackground(false);
         postButton2->setFlat(true);
         clickedPostLabel = new QLabel(centralwidget);
@@ -183,7 +183,7 @@ public:
         SocialNetworkWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(SocialNetworkWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 808, 24));
+        menubar->setGeometry(QRect(0, 0, 992, 24));
         SocialNetworkWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(SocialNetworkWindow);
         statusbar->setObjectName("statusbar");
