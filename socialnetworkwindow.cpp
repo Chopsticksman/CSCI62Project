@@ -231,23 +231,14 @@ void SocialNetworkWindow::myPostsButtonClick()
 
 void SocialNetworkWindow::friendsPostsButtonClick()
 {
-    ui->postButton1->show();
-    ui->postButton2->show();
-    ui->postButton3->show();
-    ui->postButton4->show();
-    ui->postButton5->show();
+    ui->postButton1->hide();
+    ui->postButton2->hide();
+    ui->postButton3->hide();
+    ui->postButton4->hide();
+    ui->postButton5->hide();
+
     std::unordered_map<int, std::string> mp;
     std::set<int> friends = curUser->getFriends();
-<<<<<<< HEAD
-    std::vector<int> keys;
-    for (int fr : friends) {
-        User *u = n.getUser(fr);
-        std::vector<Post *> posts = u->getPosts();
-        for (auto post : posts) {
-            if (post->getIsPublic()) {
-                mp[post->getMessageId()] = post->getMessage();
-                keys.push_back(post->getMessageId());
-=======
     if (friends.size() != 0) {
         std::vector<int> keys;
         for (int fr : friends) {
@@ -282,26 +273,10 @@ void SocialNetworkWindow::friendsPostsButtonClick()
             } else if (i == 4) {
                 ui->postButton5->show();
                 ui->postButton5->setText(QString::fromStdString(mp[keys[i]]));
->>>>>>> 25b37a2018bbd8dc4d229c3542c59d9592c70fff
             }
         }
     }
 
-    std::sort(keys.begin(), keys.end());
-
-    for (int i = keys.size() - 1; i >= keys.size() - 5; i--) {
-        if (i == keys.size() - 1) {
-            ui->postButton1->setText(QString::fromStdString(mp[keys[i]]));
-        } else if (i == keys.size() - 2) {
-            ui->postButton2->setText(QString::fromStdString(mp[keys[i]]));
-        } else if (i == keys.size() - 3) {
-            ui->postButton3->setText(QString::fromStdString(mp[keys[i]]));
-        } else if (i == keys.size() - 4) {
-            ui->postButton4->setText(QString::fromStdString(mp[keys[i]]));
-        } else if (i == keys.size() - 5) {
-            ui->postButton5->setText(QString::fromStdString(mp[keys[i]]));
-        }
-    }
 }
 
 void SocialNetworkWindow::trendingPostsButtonClick()
@@ -507,6 +482,7 @@ void SocialNetworkWindow::confirmReactionClick()
     }
     Post *p = new IncomingPost(messageId, ownerId, reaction, 0, false, curUser->getName());
     shownUser->addPost(p);
+    curUser->addPost(p);
     n.writePosts("posts.txt");
     openReactions();
 }
