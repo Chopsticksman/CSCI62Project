@@ -307,32 +307,31 @@ void SocialNetworkWindow::trendingPostsButtonClick()
 
     for (int i = 0; i < 5; i++) {
         top5message.push_back(allPosts[i]->getMessage());
-        std::cout << allPosts[i]->getMessageId() << std::endl;
     }
 
-    for (auto msg : top5message) {
-        std::cout << msg << std::endl;
-    }
+    // for (auto msg : top5message) {
+    //     std::cout << msg << std::endl;
+    // }
 
     for (int i = 0; i < top5message.size(); i++) {
         if (i == 0) {
             ui->postButton1->setText(QString::fromStdString(top5message[i]));
-            std::cout << allPosts[i]->getLikes() << std::endl;
+            // std::cout << allPosts[i]->getLikes() << std::endl;
         } else if (i == 1) {
             ui->postButton2->setText(QString::fromStdString(top5message[i]));
-            std::cout << allPosts[i]->getLikes() << std::endl;
+            // std::cout << allPosts[i]->getLikes() << std::endl;
 
         } else if (i == 2) {
             ui->postButton3->setText(QString::fromStdString(top5message[i]));
-            std::cout << allPosts[i]->getLikes() << std::endl;
+            // std::cout << allPosts[i]->getLikes() << std::endl;
 
         } else if (i == 3) {
             ui->postButton4->setText(QString::fromStdString(top5message[i]));
-            std::cout << allPosts[i]->getLikes() << std::endl;
+            // std::cout << allPosts[i]->getLikes() << std::endl;
 
         } else if (i == 4) {
             ui->postButton5->setText(QString::fromStdString(top5message[i]));
-            std::cout << allPosts[i]->getLikes() << std::endl;
+            // std::cout << allPosts[i]->getLikes() << std::endl;
         }
     }
 }
@@ -477,6 +476,7 @@ void SocialNetworkWindow::confirmReactionClick()
     for (Post *p : n.getPosts()) {
         if (p->getMessageId() == currentMsgId) {
             ownerId = p->getOwnerId();
+            reaction = p->getMessage() + ": " + curUser->getName() + " - " + reaction;
             break;
         }
     }
@@ -505,15 +505,14 @@ void SocialNetworkWindow::confirmCommentClick()
     if (message != "") {
         int messageId = n.getPosts().size();
         int ownerId;
-        std::string author;
         for (Post *p : n.getPosts()) {
             if (p->getMessageId() == currentMsgId) {
                 ownerId = p->getOwnerId();
-                author = p->getAuthor();
                 break;
             }
         }
-        Post *p = new IncomingPost(messageId, ownerId, message, 0, false, author);
+
+        Post *p = new IncomingPost(messageId, ownerId, message, 0, false, curUser->getName());
         curUser->addPost(p);
         n.writePosts("posts.txt");
         commentClick();
@@ -553,14 +552,12 @@ void SocialNetworkWindow::display()
     ui->postButton5->hide();
     int msgIndex = shownUser->getPosts().size() - 1;
     for (int i = 0; i < 5; i++) {
-        std::cout << msgIndex << std::endl;
         if (msgIndex == -1) {
             break;
         }
 
         if (shownUser->getPosts()[msgIndex]->getIsPublic() == true
             || (shownUser->getId() == curUser->getId() && shownUser->getPosts()[msgIndex]->getOwnerId() == curUser->getId())) {
-            std::cout << curUser->getPostsString(100, false) << std::endl;
             if (i == 0) {
                 ui->postButton1->setText(
                     QString::fromStdString(shownUser->getPosts()[msgIndex]->getMessage()));
