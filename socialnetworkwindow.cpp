@@ -253,7 +253,6 @@ void SocialNetworkWindow::friendsPostsButtonClick()
             }
         }
 
-        //std::sort(keys.begin(), keys.end());
         std::sort(keys.begin(), keys.end(), [](int a, int b) {
             return a > b;
         });
@@ -556,7 +555,10 @@ void SocialNetworkWindow::displayPost()
     ui->likesLabel->show();
     ui->clickedPostLabel->show();
     ui->reactionButton->show();
+    ui->reactionButton->setText("Add Reaction");
     ui->commentButton->show();
+    ui->commentButton->setText("Add Comment");
+
 }
 
 void SocialNetworkWindow::display()
