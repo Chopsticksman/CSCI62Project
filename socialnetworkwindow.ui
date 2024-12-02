@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>992</width>
-    <height>784</height>
+    <width>862</width>
+    <height>804</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -229,20 +229,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QPushButton" name="postButton1">
     <property name="geometry">
      <rect>
-      <x>15</x>
-      <y>420</y>
+      <x>10</x>
+      <y>430</y>
       <width>771</width>
       <height>32</height>
      </rect>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LayoutDirection::LeftToRight</enum>
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
     <property name="text">
-     <string/>
+     <string>Recent Post</string>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -251,20 +251,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QPushButton" name="postButton5">
     <property name="geometry">
      <rect>
-      <x>15</x>
-      <y>620</y>
+      <x>10</x>
+      <y>630</y>
       <width>771</width>
       <height>32</height>
      </rect>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LayoutDirection::LeftToRight</enum>
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
     <property name="text">
-     <string/>
+     <string>Recent Post</string>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -273,20 +273,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QPushButton" name="postButton4">
     <property name="geometry">
      <rect>
-      <x>15</x>
-      <y>570</y>
+      <x>10</x>
+      <y>580</y>
       <width>771</width>
       <height>32</height>
      </rect>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LayoutDirection::LeftToRight</enum>
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
     <property name="text">
-     <string/>
+     <string>Recent Post</string>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -295,20 +295,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QPushButton" name="postButton3">
     <property name="geometry">
      <rect>
-      <x>15</x>
-      <y>520</y>
+      <x>10</x>
+      <y>530</y>
       <width>771</width>
       <height>32</height>
      </rect>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LayoutDirection::LeftToRight</enum>
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
     <property name="text">
-     <string/>
+     <string>Recent Post</string>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -317,20 +317,20 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QPushButton" name="postButton2">
     <property name="geometry">
      <rect>
-      <x>15</x>
-      <y>470</y>
+      <x>10</x>
+      <y>480</y>
       <width>771</width>
       <height>32</height>
      </rect>
     </property>
     <property name="layoutDirection">
-     <enum>Qt::LayoutDirection::LeftToRight</enum>
+     <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
     <property name="text">
-     <string/>
+     <string>Recent Post</string>
     </property>
     <property name="flat">
      <bool>true</bool>
@@ -573,14 +573,79 @@ li.checked::marker { content: &quot;\2612&quot;; }
      <string/>
     </property>
    </widget>
+   <widget class="QLabel" name="postNameLabel1">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>460</y>
+      <width>241</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>- Eric Kim</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="postNameLabel2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>510</y>
+      <width>231</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>- Eric Kim</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="postNameLabel3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>560</y>
+      <width>251</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>- Eric Kim</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="postNameLabel4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>610</y>
+      <width>191</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>- Eric Kim</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="postNameLabel5">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>660</y>
+      <width>241</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>- Eric Kim</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>992</width>
-     <height>24</height>
+     <width>862</width>
+     <height>36</height>
     </rect>
    </property>
   </widget>

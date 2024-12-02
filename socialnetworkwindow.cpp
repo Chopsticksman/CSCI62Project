@@ -79,6 +79,12 @@ SocialNetworkWindow::SocialNetworkWindow(QWidget *parent)
     ui->enterZipLabel->hide();
     ui->enterZipText->hide();
     ui->createButton->hide();
+    ui->postNameLabel1->hide();
+    ui->postNameLabel2->hide();
+    ui->postNameLabel3->hide();
+    ui->postNameLabel4->hide();
+    ui->postNameLabel5->hide();
+
     connect(ui->postButton1, &QPushButton::clicked, this, &SocialNetworkWindow::postClick1);
     connect(ui->postButton2, &QPushButton::clicked, this, &SocialNetworkWindow::postClick2);
     connect(ui->postButton3, &QPushButton::clicked, this, &SocialNetworkWindow::postClick3);
@@ -231,50 +237,18 @@ void SocialNetworkWindow::myPostsButtonClick()
 
 void SocialNetworkWindow::friendsPostsButtonClick()
 {
-    ui->postButton1->show();
-    ui->postButton2->show();
-    ui->postButton3->show();
-    ui->postButton4->show();
-    ui->postButton5->show();
 
-    // std::unordered_map<int, std::string> mp;
-    // std::set<int> friends = curUser->getFriends();
-    // if (friends.size() != 0) {
-    //     std::vector<int> keys;
-    //     for (int fr : friends) {
-    //         User *u = n.getUser(fr);
-    //         std::vector<Post *> posts = u->getPosts();
-    //         for (auto post : posts) {
-    //             if (post->getIsPublic()) {
-    //                 mp[post->getMessageId()] = post->getMessage();
-    //                 keys.push_back(post->getMessageId());
-    //             }
-    //         }
-    //     }
+    ui->postButton1->hide();
+    ui->postButton2->hide();
+    ui->postButton3->hide();
+    ui->postButton4->hide();
+    ui->postButton5->hide();
 
-    //     std::sort(keys.begin(), keys.end(), [](int a, int b) {
-    //         return a > b;
-    //     });
-
-    //     for (int i = 0; i < 5; i++) {
-    //         if (i == 0) {
-    //             ui->postButton1->show();
-    //             ui->postButton1->setText(QString::fromStdString(mp[keys[i]]));
-    //         } else if (i == 1) {
-    //             ui->postButton2->show();
-    //             ui->postButton2->setText(QString::fromStdString(mp[keys[i]]));
-    //         } else if (i == 2) {
-    //             ui->postButton3->show();
-    //             ui->postButton3->setText(QString::fromStdString(mp[keys[i]]));
-    //         } else if (i == 3) {
-    //             ui->postButton4->show();
-    //             ui->postButton4->setText(QString::fromStdString(mp[keys[i]]));
-    //         } else if (i == 4) {
-    //             ui->postButton5->show();
-    //             ui->postButton5->setText(QString::fromStdString(mp[keys[i]]));
-    //         }
-    //     }
-    // }
+    ui->postNameLabel1->hide();
+    ui->postNameLabel2->hide();
+    ui->postNameLabel3->hide();
+    ui->postNameLabel4->hide();
+    ui->postNameLabel5->hide();
 
     std::set<int> friends = curUser->getFriends();
     std::vector<User *> users = n.getUsers();
@@ -297,11 +271,11 @@ void SocialNetworkWindow::friendsPostsButtonClick()
 
     std::vector<std::string> top5message;
     std::vector<std::string> top5owners;
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < allFriendPosts.size(); i++) {
         top5message.push_back(allFriendPosts[i]->getMessage());
     }
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < allFriendPosts.size(); i++) {
         int id = allFriendPosts[i]->getOwnerId();
         User *u = n.getUser(id);
         top5owners.push_back(u->getName());
@@ -309,17 +283,33 @@ void SocialNetworkWindow::friendsPostsButtonClick()
 
     for (int i = 0; i < top5message.size(); i++) {
         if (i == 0) {
-            ui->postButton1->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+            ui->postButton1->setText(QString::fromStdString(top5message[i]));
+            ui->postButton1->show();
+            ui->postNameLabel1->show();
+            ui->postNameLabel1->setText(QString::fromStdString(" - " + top5owners[i]));
         } else if (i == 1) {
-            ui->postButton2->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+            ui->postButton2->setText(QString::fromStdString(top5message[i]));
+            ui->postButton2->show();
+            ui->postNameLabel2->show();
+            ui->postNameLabel2->setText(QString::fromStdString(" - " + top5owners[i]));
         } else if (i == 2) {
-            ui->postButton3->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+            ui->postButton3->setText(QString::fromStdString(top5message[i]));
+            ui->postButton3->show();
+            ui->postNameLabel3->show();
+            ui->postNameLabel3->setText(QString::fromStdString(" - " + top5owners[i]));
         } else if (i == 3) {
-            ui->postButton4->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+            ui->postButton4->setText(QString::fromStdString(top5message[i]));
+            ui->postButton4->show();
+            ui->postNameLabel4->show();
+            ui->postNameLabel4->setText(QString::fromStdString(" - " + top5owners[i]));
         } else if (i == 4) {
-            ui->postButton5->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+            ui->postButton5->setText(QString::fromStdString(top5message[i]));
+            ui->postButton5->show();
+            ui->postNameLabel5->show();
+            ui->postNameLabel5->setText(QString::fromStdString(" - " + top5owners[i]));
         }
     }
+
 }
 
 void SocialNetworkWindow::trendingPostsButtonClick()
@@ -362,15 +352,25 @@ void SocialNetworkWindow::trendingPostsButtonClick()
 
     for (int i = 0; i < top5message.size(); i++) {
         if (i == 0) {
-            ui->postButton1->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+            ui->postButton1->setText(QString::fromStdString(top5message[i]));
+            ui->postNameLabel1->show();
+            ui->postNameLabel1->setText(QString::fromStdString(" - " + top5owners[i]));
         } else if (i == 1) {
-            ui->postButton2->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+            ui->postButton2->setText(QString::fromStdString(top5message[i]));
+            ui->postNameLabel2->show();
+            ui->postNameLabel2->setText(QString::fromStdString(" - " + top5owners[i]));
         } else if (i == 2) {
-            ui->postButton3->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+            ui->postButton3->setText(QString::fromStdString(top5message[i]));
+            ui->postNameLabel3->show();
+            ui->postNameLabel3->setText(QString::fromStdString(" - " + top5owners[i]));
         } else if (i == 3) {
-            ui->postButton4->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+            ui->postButton4->setText(QString::fromStdString(top5message[i]));
+            ui->postNameLabel4->show();
+            ui->postNameLabel4->setText(QString::fromStdString(" - " + top5owners[i]));
         } else if (i == 4) {
-            ui->postButton5->setText(QString::fromStdString(top5message[i] + " - " + top5owners[i]));
+            ui->postButton5->setText(QString::fromStdString(top5message[i]));
+            ui->postNameLabel5->show();
+            ui->postNameLabel5->setText(QString::fromStdString(" - " + top5owners[i]));
         }
     }
 }
@@ -390,6 +390,17 @@ void SocialNetworkWindow::createAccButtonClick() {
     ui->nameTextEdit->hide();
 }
 
+int getLength(int num) {
+    if (num == 0)
+        return 1;
+    int length = 0;
+    while (num != 0) {
+        num /= 10;
+        length++;
+    }
+    return length;
+}
+
 void SocialNetworkWindow::createAccount() {
     std::string name = ui->enterNameText->toPlainText().toStdString();
     int zip = ui->enterZipText->toPlainText().toInt();
@@ -398,22 +409,40 @@ void SocialNetworkWindow::createAccount() {
 
     std::vector<User*> users = n.getUsers();
 
-    User * newUser = new User(n.numUsers(), name, year, zip, friends);
-    n.addUser(newUser);
+    int i = 0;
+    for ( ; i < users.size(); i++) {
+        if (users[i]->getName() == name) {
+            ui->nameExistsLabel->show();
+            ui->nameExistsLabel->setText(QString::fromStdString("Name already exists!"));
+            return;
+        }
+    }
 
-    n.writeUsers("users.txt");
-    ui->enterNameLabel2->hide();
-    ui->enterNameText->hide();
-    ui->enterYearLabel->hide();
-    ui->enterYearText->hide();
-    ui->enterZipLabel->hide();
-    ui->enterZipText->hide();
-    ui->createButton->hide();
+    if (i >= users.size()) {
+        if (getLength(zip) != 5 || getLength(year) != 4) {
+            ui->nameExistsLabel->show();
+            ui->nameExistsLabel->setText(QString::fromStdString("Invalid year or zipcode!"));
+            return;
+        }
+        User * newUser = new User(n.numUsers(), name, year, zip, friends);
+        n.addUser(newUser);
 
-    ui->loginButton->show();
-    ui->createAccButton->show();
-    ui->enterNameLabel->show();
-    ui->nameTextEdit->show();
+        n.writeUsers("users.txt");
+        ui->enterNameLabel2->hide();
+        ui->enterNameText->hide();
+        ui->enterYearLabel->hide();
+        ui->enterYearText->hide();
+        ui->enterZipLabel->hide();
+        ui->enterZipText->hide();
+        ui->createButton->hide();
+        ui->nameExistsLabel->hide();
+
+        ui->loginButton->show();
+        ui->createAccButton->show();
+        ui->enterNameLabel->show();
+        ui->enterNameLabel->setText(QString::fromStdString("Enter your name"));
+        ui->nameTextEdit->show();
+    }
 }
 
 void SocialNetworkWindow::postClick1()
@@ -660,6 +689,11 @@ void SocialNetworkWindow::display()
         }
         ui->backButton->show();
     }
+    ui->postNameLabel1->hide();
+    ui->postNameLabel2->hide();
+    ui->postNameLabel3->hide();
+    ui->postNameLabel4->hide();
+    ui->postNameLabel5->hide();
 }
 
 void SocialNetworkWindow::hideAll()
@@ -695,4 +729,9 @@ void SocialNetworkWindow::hideAll()
     ui->commentButton->hide();
     ui->commentBox->hide();
     ui->confirmCommentButton->hide();
+    ui->postNameLabel1->hide();
+    ui->postNameLabel2->hide();
+    ui->postNameLabel3->hide();
+    ui->postNameLabel4->hide();
+    ui->postNameLabel5->hide();
 }
