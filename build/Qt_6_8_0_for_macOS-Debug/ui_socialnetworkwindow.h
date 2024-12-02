@@ -57,6 +57,15 @@ public:
     QPushButton *commentButton;
     QPushButton *confirmCommentButton;
     QTextEdit *commentBox;
+    QPushButton *createAccButton;
+    QTextEdit *enterNameText;
+    QTextEdit *enterZipText;
+    QTextEdit *enterYearText;
+    QLabel *enterNameLabel2;
+    QLabel *enterZipLabel;
+    QLabel *enterYearLabel;
+    QPushButton *createButton;
+    QLabel *nameExistsLabel;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -72,7 +81,7 @@ public:
         nameTextEdit->setGeometry(QRect(350, 240, 104, 71));
         enterNameLabel = new QLabel(centralwidget);
         enterNameLabel->setObjectName("enterNameLabel");
-        enterNameLabel->setGeometry(QRect(350, 210, 121, 20));
+        enterNameLabel->setGeometry(QRect(340, 200, 121, 20));
         loginButton = new QPushButton(centralwidget);
         loginButton->setObjectName("loginButton");
         loginButton->setGeometry(QRect(350, 320, 100, 32));
@@ -180,6 +189,33 @@ public:
         commentBox = new QTextEdit(centralwidget);
         commentBox->setObjectName("commentBox");
         commentBox->setGeometry(QRect(13, 410, 251, 161));
+        createAccButton = new QPushButton(centralwidget);
+        createAccButton->setObjectName("createAccButton");
+        createAccButton->setGeometry(QRect(340, 350, 121, 32));
+        enterNameText = new QTextEdit(centralwidget);
+        enterNameText->setObjectName("enterNameText");
+        enterNameText->setGeometry(QRect(340, 230, 121, 31));
+        enterZipText = new QTextEdit(centralwidget);
+        enterZipText->setObjectName("enterZipText");
+        enterZipText->setGeometry(QRect(340, 290, 121, 31));
+        enterYearText = new QTextEdit(centralwidget);
+        enterYearText->setObjectName("enterYearText");
+        enterYearText->setGeometry(QRect(340, 350, 121, 31));
+        enterNameLabel2 = new QLabel(centralwidget);
+        enterNameLabel2->setObjectName("enterNameLabel2");
+        enterNameLabel2->setGeometry(QRect(340, 210, 111, 16));
+        enterZipLabel = new QLabel(centralwidget);
+        enterZipLabel->setObjectName("enterZipLabel");
+        enterZipLabel->setGeometry(QRect(340, 270, 101, 16));
+        enterYearLabel = new QLabel(centralwidget);
+        enterYearLabel->setObjectName("enterYearLabel");
+        enterYearLabel->setGeometry(QRect(340, 330, 101, 16));
+        createButton = new QPushButton(centralwidget);
+        createButton->setObjectName("createButton");
+        createButton->setGeometry(QRect(350, 390, 100, 32));
+        nameExistsLabel = new QLabel(centralwidget);
+        nameExistsLabel->setObjectName("nameExistsLabel");
+        nameExistsLabel->setGeometry(QRect(340, 180, 141, 20));
         SocialNetworkWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(SocialNetworkWindow);
         menubar->setObjectName("menubar");
@@ -205,7 +241,7 @@ public:
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", nullptr));
-        enterNameLabel->setText(QCoreApplication::translate("SocialNetworkWindow", "Enter your name. ", nullptr));
+        enterNameLabel->setText(QCoreApplication::translate("SocialNetworkWindow", "Enter your name", nullptr));
         loginButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Login", nullptr));
         profileLabel->setText(QCoreApplication::translate("SocialNetworkWindow", "            My Profile", nullptr));
         friendsLabel->setText(QCoreApplication::translate("SocialNetworkWindow", "Friends List", nullptr));
@@ -217,11 +253,11 @@ public:
         myPostsButton->setText(QCoreApplication::translate("SocialNetworkWindow", "My Posts", nullptr));
         friendsPostsButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Friends", nullptr));
         trendingPostsButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Trending", nullptr));
-        postButton1->setText(QCoreApplication::translate("SocialNetworkWindow", "Recent Post 1", nullptr));
-        postButton5->setText(QCoreApplication::translate("SocialNetworkWindow", "Recent Post 5", nullptr));
-        postButton4->setText(QCoreApplication::translate("SocialNetworkWindow", "Recent Post 4", nullptr));
-        postButton3->setText(QCoreApplication::translate("SocialNetworkWindow", "Recent Post 3", nullptr));
-        postButton2->setText(QCoreApplication::translate("SocialNetworkWindow", "Recent Post 2", nullptr));
+        postButton1->setText(QString());
+        postButton5->setText(QString());
+        postButton4->setText(QString());
+        postButton3->setText(QString());
+        postButton2->setText(QString());
         clickedPostLabel->setText(QCoreApplication::translate("SocialNetworkWindow", "                                                                                                  Clicked Post Text Here", nullptr));
         likeButton->setText(QCoreApplication::translate("SocialNetworkWindow", "\360\237\244\215", nullptr));
         likesLabel->setText(QCoreApplication::translate("SocialNetworkWindow", "9 BILLION!!", nullptr));
@@ -229,6 +265,12 @@ public:
         confirmReactionButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Add", nullptr));
         commentButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Add Comment", nullptr));
         confirmCommentButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Comment", nullptr));
+        createAccButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Create Account", nullptr));
+        enterNameLabel2->setText(QCoreApplication::translate("SocialNetworkWindow", "Enter Name", nullptr));
+        enterZipLabel->setText(QCoreApplication::translate("SocialNetworkWindow", "Enter Zip Code", nullptr));
+        enterYearLabel->setText(QCoreApplication::translate("SocialNetworkWindow", "Enter Birth Year", nullptr));
+        createButton->setText(QCoreApplication::translate("SocialNetworkWindow", "Create", nullptr));
+        nameExistsLabel->setText(QString());
     } // retranslateUi
 
 };
