@@ -481,7 +481,6 @@ void SocialNetworkWindow::confirmReactionClick()
         }
     }
     Post *p = new IncomingPost(messageId, ownerId, reaction, 0, false, curUser->getName());
-    shownUser->addPost(p);
     curUser->addPost(p);
     n.writePosts("posts.txt");
     openReactions();
@@ -517,6 +516,7 @@ void SocialNetworkWindow::confirmCommentClick()
         Post *p = new IncomingPost(messageId, ownerId, message, 0, false, author);
         curUser->addPost(p);
         n.writePosts("posts.txt");
+        commentClick();
     }
 }
 
@@ -553,15 +553,14 @@ void SocialNetworkWindow::display()
     ui->postButton5->hide();
     int msgIndex = shownUser->getPosts().size() - 1;
     for (int i = 0; i < 5; i++) {
+        std::cout << msgIndex << std::endl;
         if (msgIndex == -1) {
             break;
         }
-        std::cout << "Shown user: " << shownUser->getName() << std::endl;
-        std::cout << "Current user: " << curUser->getName() << std::endl;
-        std::cout << "Author: " << shownUser->getPosts()[msgIndex] << std::endl;
 
         if (shownUser->getPosts()[msgIndex]->getIsPublic() == true
-            || shownUser->getId() == curUser->getId() || curUser->getName() == shownUser->getPosts()[msgIndex]->getAuthor()) {
+            || (shownUser->getId() == curUser->getId() && shownUser->getPosts()[msgIndex]->getOwnerId() == curUser->getId())) {
+            std::cout << curUser->getPostsString(100, false) << std::endl;
             if (i == 0) {
                 ui->postButton1->setText(
                     QString::fromStdString(shownUser->getPosts()[msgIndex]->getMessage()));
